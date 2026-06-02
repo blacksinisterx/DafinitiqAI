@@ -133,7 +133,21 @@ export default function TicketDetail() {
 
   return (
     <div className="max-w-4xl">
-      <button onClick={() => navigate('/tickets')} className="text-blue-600 text-sm mb-4 hover:underline">← Back to Inbox</button>
+      <div className="flex items-center justify-between mb-4">
+        <button onClick={() => navigate('/tickets')} className="text-blue-600 text-sm hover:underline">← Back to Inbox</button>
+        {ticket.status !== 'resolved' && (
+          <button
+            disabled={updatingStatus}
+            onClick={() => updateStatus('resolved')}
+            className="bg-green-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-green-700 disabled:opacity-50 transition"
+          >
+            {updatingStatus ? 'Saving...' : '✓ Mark as Resolved'}
+          </button>
+        )}
+        {ticket.status === 'resolved' && (
+          <span className="bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-semibold">✓ Resolved</span>
+        )}
+      </div>
 
       {/* Header */}
       <div className="bg-white rounded-lg shadow p-6 mb-4">
